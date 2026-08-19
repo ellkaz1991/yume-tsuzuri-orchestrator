@@ -1,0 +1,35 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "yume-tsuzuri-orchestrator",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-19",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "observability": {
+    "enabled": true
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "SETUP_STATE",
+        "class_name": "SetupState"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["SetupState"]
+    }
+  ],
+  "vars": {
+    "SITE_BASE_URL": "https://yume-novel-studio.kazushi1991.chatgpt.site"
+  },
+  "workflows": [
+    {
+      "name": "yume-tsuzuri-generation",
+      "binding": "GENERATION_WORKFLOW",
+      "class_name": "GenerationWorkflow"
+    }
+  ]
+}
